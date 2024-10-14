@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
@@ -12,7 +12,7 @@ body {
     flex-direction: column;
 }
 
-h3{
+h3 {
     margin: 10px;
     margin-bottom: 50px;
 }
@@ -94,27 +94,6 @@ h3{
     font-weight: bold;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     cursor: pointer;
-}
-
-button {
-    padding: 15px 30px;
-    font-size: 16px;
-    margin: 10px 10px 30px 10px;
-    color: white;
-    background-color: #79c97d;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
-button:active {
-    transform: scale(0.95);
 }
 
 .flash {
