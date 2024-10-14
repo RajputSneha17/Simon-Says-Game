@@ -11,11 +11,9 @@ let button = document.querySelector(".start");
 
 button.addEventListener("click", function () {
     if (!started) {
-        button.innerText = "Restart";
-        started = true;
-        levelUp();
-    } else {
-        resetGame();
+        started = true; 
+        button.innerText = "Playing...";
+        levelUp(); 
     }
 });
 
@@ -42,23 +40,27 @@ function levelUp() {
     
     let randIdx = Math.floor(Math.random() * btns.length);
     let randColor = btns[randIdx];
-    let randBtn = document.querySelector(`.${randColor}`);
-    
     gameSeq.push(randColor);
-    console.log(gameSeq);
     
-    gameFlash(randBtn);
+    // Flash each button in sequence
+    gameSeq.forEach((color, index) => {
+        setTimeout(() => {
+            let randBtn = document.querySelector(`.${color}`);
+            gameFlash(randBtn);
+        }, index * 1000); // 1 second apart
+    });
+    
     calculateHighestScore(level);
 }
 
 function checkAns(idx) {
     if (!started) return;
-
     if (gameSeq[idx] === userSeq[idx]) {
         if (userSeq.length === gameSeq.length) {
             setTimeout(levelUp, 1000);
         }
     } else {
+        alert(`Game Over!! \n Your Score: ${level}`);
         confetti({
             particleCount: 100,
             spread: 70,
@@ -70,9 +72,8 @@ function checkAns(idx) {
         setTimeout(function () {
             document.querySelector("body").style.backgroundColor = "lightgoldenrodyellow";
         }, 150);
-        alert(`Game Over!! \n Your Score: ${level}`);
         
-        resetGame();
+        resetGame(); 
     }
 }
 
@@ -82,7 +83,6 @@ function btnPress() {
     let btn = this;
     userFlash(btn);
     let userColor = btn.getAttribute("id");
-    console.log(userColor);
     userSeq.push(userColor);
     checkAns(userSeq.length - 1);
 }
@@ -98,8 +98,7 @@ function resetGame() {
     gameSeq = [];
     userSeq = [];
     level = 0;
-    highestScore = 0;
-    updateHighestScore();
+    updateHighestScore(); 
 }
 
 function calculateHighestScore(score) {
@@ -112,10 +111,3 @@ function updateHighestScore() {
 }
 
 updateHighestScore();
-document.getElementById("confettiButton").addEventListener("click", function() {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 1 }
-    });
-});
